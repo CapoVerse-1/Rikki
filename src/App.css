@@ -1,14 +1,15 @@
 /* General Reset & Body */
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  /* Suggesting cleaner, modern fonts */
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #f8f8f8; /* Light background */
-  color: #333; /* Dark text for contrast */
-  line-height: 1.6;
+  background-color: #ffffff; /* Cleaner white background */
+  color: #212121; /* Slightly softer black for text */
+  line-height: 1.7;
 }
 
 code {
@@ -16,27 +17,33 @@ code {
     monospace;
 }
 
+h1, h2, h3 {
+  font-weight: 500; /* Medium weight for headings */
+  letter-spacing: -0.5px;
+}
+
 a {
-  color: #555; /* Subtle link color */
+  color: #424242; /* Darker grey for links */
   text-decoration: none;
-  transition: color 0.3s ease;
+  transition: color 0.3s ease, opacity 0.3s ease;
 }
 
 a:hover {
-  color: #000;
+  color: #000000;
+  opacity: 0.8;
 }
 
 /* App Container */
 .App {
-  text-align: center;
+  /* text-align: center; -- Removing default center align */
 }
 
 /* Landing Page Specific Styles */
 .landing-page {
-  max-width: 1200px; /* Limit width for better readability */
+  max-width: 1300px; /* Slightly wider */
   margin: 0 auto; /* Center the content */
-  padding: 0 20px;
-  text-align: left; /* Align text left for content sections */
+  padding: 0 30px; /* Increased padding */
+  /* text-align: left; -- Default browser behavior */
 }
 
 /* Header */
@@ -44,131 +51,249 @@ a:hover {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 0;
-  border-bottom: 1px solid #eee;
-  margin-bottom: 40px;
+  padding: 25px 0; /* Increased padding */
+  border-bottom: 1px solid #eeeeee; /* Lighter border */
+  margin-bottom: 60px; /* Increased spacing */
 }
 
 .main-header h1 {
   margin: 0;
-  font-size: 1.8em;
-  font-weight: 500; /* Slightly lighter font */
+  font-size: 1.9em;
+  font-weight: 600; /* Bolder for brand name */
+  letter-spacing: -1px;
 }
 
 .main-header nav a {
-  margin-left: 25px;
+  margin-left: 30px; /* Increased spacing */
   font-size: 1em;
+  font-weight: 500;
 }
 
 /* Hero Section */
 .hero-section {
   position: relative; /* For potential overlay content */
-  min-height: 60vh; /* Make it tall */
+  min-height: 70vh; /* Taller */
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #e0e0e0; /* Placeholder background */
-  background-size: cover; /* Assuming an image later */
+  background-color: #f0f0f0; /* Lighter placeholder background */
+  background-size: cover;
   background-position: center;
-  margin-bottom: 60px;
-  color: #fff; /* Default text color for hero */
+  margin-bottom: 80px; /* More space */
+  color: #ffffff; /* White text */
   text-align: center;
+  padding: 20px;
+  border-radius: 8px; /* Subtle rounding */
+  overflow: hidden; /* Ensure background respects border-radius */
+}
+
+.hero-section::before { /* Optional overlay for better text contrast */
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.35); /* Slightly darker overlay */
+    z-index: 1;
 }
 
 .hero-content {
-  background-color: rgba(0, 0, 0, 0.4); /* Dark overlay for text visibility */
+  /* background-color: rgba(0, 0, 0, 0.4); remove direct background */
   padding: 40px;
   border-radius: 5px;
+  position: relative; /* Ensure content is above overlay */
+  z-index: 2;
 }
 
 .hero-content h2 {
-  font-size: 2.8em;
-  margin-bottom: 15px;
+  font-size: 3.2em; /* Larger heading */
+  margin-bottom: 20px;
   font-weight: 600;
+  line-height: 1.2;
 }
 
 .hero-content p {
-  font-size: 1.2em;
-  margin-bottom: 30px;
+  font-size: 1.3em;
+  margin-bottom: 35px;
+  font-weight: 300; /* Lighter paragraph text */
+  max-width: 600px; /* Limit width for readability */
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .hero-content button {
-  padding: 12px 25px;
-  font-size: 1em;
-  background-color: #fff;
-  color: #333;
+  padding: 14px 30px; /* Larger button */
+  font-size: 1.1em;
+  background-color: #ffffff;
+  color: #212121;
   border: none;
   cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
   font-weight: 500;
+  border-radius: 4px;
 }
 
 .hero-content button:hover {
-  background-color: #eee;
-  color: #000;
+  background-color: #f0f0f0;
+  color: #000000;
+  transform: translateY(-2px); /* Subtle lift effect */
+}
+
+/* Section Titles */
+.featured-collection h2,
+.about-brand h2,
+.our-story-section h2 {
+  text-align: center;
+  margin-bottom: 50px; /* Increased bottom margin */
+  font-size: 2.4em; /* Larger section titles */
+  font-weight: 500;
+  color: #333;
 }
 
 /* Featured Collection Section */
 .featured-collection {
-  margin-bottom: 60px;
-}
-
-.featured-collection h2 {
-  text-align: center;
-  margin-bottom: 40px;
-  font-size: 2em;
-  font-weight: 500;
+  margin-bottom: 80px;
 }
 
 .collection-intro {
-  display: flex;
-  gap: 40px; /* Space between text and image */
+  display: grid; /* Use grid for better control */
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive columns */
+  gap: 60px; /* Increased gap */
   align-items: center;
 }
 
 .artist-story {
-  flex: 1; /* Take up available space */
+  /* flex: 1; No longer needed with grid */
 }
 
 .artist-story h3 {
-    font-size: 1.5em;
-    margin-bottom: 15px;
+    font-size: 1.8em; /* Larger subtitle */
+    margin-bottom: 20px;
     font-weight: 500;
 }
 
+.artist-story p {
+    font-size: 1.1em;
+    line-height: 1.8;
+    color: #555;
+    margin-bottom: 25px;
+}
+
 .collection-visual {
-  flex: 1;
+  /* flex: 1; No longer needed with grid */
+  text-align: center; /* Center image if container is wider */
 }
 
 .collection-visual img {
   max-width: 100%;
   height: auto;
   display: block;
-  background-color: #ddd; /* Placeholder */
+  background-color: #e9e9e9; /* Slightly lighter placeholder */
+  border-radius: 6px; /* Rounded corners for image */
+  margin: 0 auto;
 }
 
-/* About Section */
+.cta-link {
+    display: inline-block;
+    font-weight: 500;
+    color: #1a1a1a;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 2px;
+    transition: border-color 0.3s ease;
+}
+
+.cta-link:hover {
+    color: #000;
+    border-color: #000;
+}
+
+/* Our Story / About Sections */
+.our-story-section,
 .about-brand {
-  background-color: #fff; /* White background for contrast */
-  padding: 40px;
-  margin-bottom: 60px;
-  border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  background-color: #f9f9f9; /* Very light grey background */
+  padding: 60px 40px; /* Increased padding */
+  margin-bottom: 80px;
+  border-radius: 8px;
+  /* box-shadow: 0 4px 10px rgba(0,0,0,0.04); Subtle shadow */
+  text-align: center; /* Center text within these sections */
 }
 
-.about-brand h2 {
-  text-align: center;
-  margin-bottom: 20px;
-  font-size: 2em;
-  font-weight: 500;
+.our-story-section p,
+.about-brand p {
+    max-width: 700px; /* Limit paragraph width */
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 1.15em;
+    color: #444;
+    line-height: 1.8;
 }
+
 
 /* Footer */
 .main-footer {
-  border-top: 1px solid #eee;
-  padding: 30px 0;
-  margin-top: 40px;
+  border-top: 1px solid #eeeeee;
+  padding: 40px 0 30px; /* Adjusted padding */
+  margin-top: 60px;
   text-align: center;
-  font-size: 0.9em;
-  color: #777;
+  font-size: 0.95em;
+  color: #888;
+}
+
+.footer-links {
+    margin-bottom: 15px;
+}
+
+.footer-links a {
+    color: #666;
+    margin: 0 10px;
+}
+
+.footer-links a:hover {
+    color: #111;
+}
+
+/* Basic Responsive Adjustments */
+@media (max-width: 768px) {
+  .landing-page {
+    padding: 0 15px;
+  }
+
+  .main-header {
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 40px;
+  }
+
+  .main-header nav a {
+    margin: 0 10px;
+  }
+
+  .hero-content h2 {
+    font-size: 2.5em;
+  }
+
+  .hero-content p {
+    font-size: 1.1em;
+  }
+
+  .featured-collection h2,
+  .about-brand h2,
+  .our-story-section h2 {
+    font-size: 2em;
+    margin-bottom: 30px;
+  }
+
+  .collection-intro {
+    gap: 30px;
+  }
+
+  .artist-story h3 {
+    font-size: 1.5em;
+  }
+
+  .our-story-section,
+  .about-brand {
+    padding: 40px 20px;
+  }
 } 
