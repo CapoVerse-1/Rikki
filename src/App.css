@@ -182,7 +182,7 @@ a:hover {
 }
 
 /* Section Titles */
-.featured-collection h2,
+.featured-collection-section h2,
 .about-brand h2,
 .our-story-section h2 {
   text-align: center;
@@ -192,33 +192,69 @@ a:hover {
   color: #444;
 }
 
-/* Featured Collection Section */
-.featured-collection {
+/* Featured Collection Section - Slider Styles */
+.featured-collection-section {
   margin-bottom: 90px;
+  position: relative; /* Context for absolute positioning if needed later */
 }
 
+.collection-slider {
+  overflow: hidden; /* Crucial: Hides the slides that are outside the viewport */
+  position: relative;
+  width: 100%; /* Or max-width if preferred */
+  margin: 0 auto; /* Center slider if using max-width */
+}
+
+.slider-wrapper {
+  display: flex; /* Aligns slides horizontally */
+  transition: transform 0.5s ease-in-out; /* Smooth sliding animation */
+  width: 100%; /* Ensure wrapper takes full width for percentage transform */
+}
+
+.collection-slide {
+  flex: 0 0 100%; /* Each slide takes exactly 100% of the container width */
+  width: 100%;
+  box-sizing: border-box; /* Include padding in width calculation */
+  /* Add padding inside the slide if needed, e.g., padding: 0 10px; */
+}
+
+/* Reusing existing styles for the content within the slide */
 .collection-intro {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 50px; /* Adjusted gap */
   align-items: center;
+  background-color: #fdfdfd; /* Slight background for the card */
+  padding: 40px; /* Add padding to the card */
+  border-radius: 10px;
+  box-shadow: 0 6px 20px rgba(0,0,0, 0.04);
+  /* Remove margin-bottom if it was on featured-collection previously */
 }
 
 .artist-story {
-  padding-right: 20px; /* Add some padding */
+  padding-right: 20px;
+}
+
+/* Added style for collection title */
+.artist-story h4 {
+    font-size: 1.2em;
+    font-weight: 400;
+    color: #777;
+    margin-top: -10px; /* Adjust spacing below artist name */
+    margin-bottom: 20px;
 }
 
 .artist-story h3 {
-    font-size: 1.6em; /* Adjusted size */
+    font-size: 1.6em;
     margin-bottom: 15px;
     font-weight: 500;
     color: #555;
 }
 
 .artist-story p {
-    font-size: 1.05em; /* Adjusted size */
+    font-size: 1.05em;
     line-height: 1.8;
-    color: #6b6b6b; /* Warmer paragraph text */
+    color: #6b6b6b;
     margin-bottom: 25px;
 }
 
@@ -230,8 +266,8 @@ a:hover {
   max-width: 100%;
   height: auto;
   display: block;
-  background-color: #f5f5f5; /* Lighter placeholder */
-  border-radius: 8px; /* Consistent rounding */
+  background-color: #f5f5f5;
+  border-radius: 8px;
   margin: 0 auto;
   transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
@@ -244,15 +280,44 @@ a:hover {
 .cta-link {
     display: inline-block;
     font-weight: 500;
-    color: #b8a4ff; /* Accent color - soft lavender */
-    border-bottom: 1px solid transparent; /* Transparent border initially */
+    color: #b8a4ff;
+    border-bottom: 1px solid transparent;
     padding-bottom: 3px;
     transition: border-color 0.3s ease, color 0.3s ease;
 }
 
 .cta-link:hover {
-    color: #8a78d0; /* Darker lavender */
-    border-color: #d9ceff; /* Lighter lavender border */
+    color: #8a78d0;
+    border-color: #d9ceff;
+}
+
+/* Slider Dots */
+.slider-dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px; /* Space above dots */
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #ddd; /* Inactive dot color */
+  border: none;
+  padding: 0;
+  margin: 0 6px; /* Spacing between dots */
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.dot.active {
+  background-color: #aaa; /* Active dot color */
+  transform: scale(1.1);
+}
+
+.dot:hover:not(.active) {
+    background-color: #ccc;
 }
 
 /* Our Story / About Sections */
@@ -282,41 +347,6 @@ a:hover {
     font-size: 1.1em; /* Adjusted size */
     color: #5f5f5f;
     line-height: 1.9; /* Increased line height */
-}
-
-/* Wrapper for Dynamic Collection Content */
-.collection-content-wrapper {
-  opacity: 1;
-  transition: opacity 0.5s ease-in-out;
-}
-
-/* Styles for Collection Indicator */
-.collection-indicator {
-  text-align: center;
-  margin: 40px 0 60px; /* Add spacing around the dots */
-}
-
-.dot {
-  display: inline-block;
-  width: 10px;
-  height: 10px;
-  margin: 0 6px;
-  background-color: #dcdcdc; /* Light grey inactive dot */
-  border-radius: 50%;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-.dot:hover {
-  background-color: #bbb;
-  transform: scale(1.1);
-}
-
-.dot.active {
-  background-color: #8a78d0; /* Use accent color for active dot */
-  transform: scale(1.2);
 }
 
 /* Footer */
@@ -400,25 +430,39 @@ a:hover {
       font-size: 0.95em;
   }
 
-  .featured-collection h2,
-  .about-brand h2,
-  .our-story-section h2 {
+  .featured-collection-section h2 {
     font-size: 1.9em;
     margin-bottom: 40px;
   }
 
   .collection-intro {
-    gap: 40px;
-    grid-template-columns: 1fr; /* Stack on mobile */
+    gap: 30px; /* Smaller gap on mobile */
+    grid-template-columns: 1fr; /* Stack image and text */
+    padding: 30px; /* Less padding on mobile card */
   }
 
   .artist-story {
       padding-right: 0;
       text-align: center;
+      order: 2; /* Put text below image when stacked */
+  }
+
+  .collection-visual {
+      order: 1; /* Put image above text when stacked */
   }
 
   .artist-story h3 {
     font-size: 1.5em;
+  }
+
+  .slider-dots {
+      margin-top: 25px;
+  }
+
+  .dot {
+      width: 9px;
+      height: 9px;
+      margin: 0 5px;
   }
 
   .our-story-section,

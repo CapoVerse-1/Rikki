@@ -1,99 +1,110 @@
 import React, { useState } from 'react';
-import CollectionIndicator from './CollectionIndicator';
 
-// Placeholder data - replace with actual data later (e.g., from API)
-const collectionsData = [
+// Sample data for collaborations (replace with actual data later)
+const collaborationsData = [
   {
     id: 1,
-    artist: 'Kilian', // Placeholder
-    title: 'Alpine Echoes', // Placeholder
-    visual: '/placeholder-visual-1.jpg', // Placeholder
-    artistStory: 'Inspired by the serene yet imposing nature of the Alps, this collection explores the interplay of light and shadow on mountain faces. Kilian uses stark contrasts and a muted palette to evoke a sense of calm power.',
-    narrative: 'Alpine Echoes represents a journey into minimalist landscapes, translating vastness into wearable art. Each piece carries the quiet strength of the mountains.',
-    philosophy: 'Focusing on sustainable materials and timeless design, this collection emphasizes mindful creation and connection to nature.',
+    artistName: "Sophia Liu",
+    collectionTitle: "Urban Canvas",
+    description: "Dive into the vibrant world of Sophia Liu. Discover the raw energy, process, and narrative behind the \"Urban Canvas\" collection. Celebrating street art aesthetics.",
+    imageUrl: "/placeholder-sophia.jpg",
+    collectionLink: "/collections/sophia-liu"
   },
   {
     id: 2,
-    artist: 'Sophia', // Placeholder
-    title: 'Urban Canvas', // Placeholder
-    visual: '/placeholder-visual-2.jpg', // Placeholder
-    artistStory: 'Sophia draws inspiration from the raw energy and hidden textures of city life. Graffiti, architecture, and the constant flow of movement inform her dynamic designs for the Urban Canvas collection.',
-    narrative: 'Urban Canvas transforms the cityscape into a wearable medium. It\'s about finding beauty in the grit, expressing individuality amidst the crowd.',
-    philosophy: 'This collection champions bold self-expression and utilizes recycled materials where possible, reflecting the resourcefulness of the urban environment.',
+    artistName: "Kenji Tanaka",
+    collectionTitle: "Minimalist Echoes",
+    description: "Explore the serene minimalism of Kenji Tanaka. Uncover the inspiration and meticulous craft behind \"Minimalist Echoes\". A study in form and tranquility.",
+    imageUrl: "/placeholder-kenji.jpg",
+    collectionLink: "/collections/kenji-tanaka"
   },
+  {
+    id: 3,
+    artistName: "Anya Petrova",
+    collectionTitle: "Abstract Dreams",
+    description: "Immerse yourself in the Abstract Dreams collection by Anya Petrova. Experience the flow of color and emotion captured in each unique piece.",
+    imageUrl: "/placeholder-anya.jpg",
+    collectionLink: "/collections/anya-petrova"
+  }
 ];
 
 const LandingPage = () => {
-  const [collections] = useState(collectionsData);
-  const [currentCollectionIndex, setCurrentCollectionIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(0);
 
-  const handleSelectCollection = (index) => {
-    setCurrentCollectionIndex(index);
+  const goToSlide = (index) => {
+    setActiveIndex(index);
   };
-
-  // Get the currently active collection based on the index
-  const currentCollection = collections[currentCollectionIndex];
-
-  // If no collection data, render loading or empty state
-  if (!currentCollection) {
-      // TODO: Add a better loading or empty state here
-      return <div>Loading collections...</div>;
-  }
 
   return (
     <div className="landing-page">
       <header className="main-header">
         <h1>HaKi</h1>
         <nav>
-          {/* Links might need rethinking if content below changes drastically */}
-          {/* <a href="#collections">Collections</a> <a href="#about">About</a> <a href="#story">Our Story</a> */}
+          <a href="#collections">Collections</a>
+          <a href="#about">About</a>
+          <a href="#story">Our Story</a>
           <a href="#shop">Shop</a>
         </nav>
       </header>
 
-      {/* Hero Section remains static as requested (outside the switching area) */}
       <section className="hero-section" style={{backgroundImage: `url(/placeholder-hero.jpg)`}}>
         <div className="hero-content">
           <h2>Where Art Meets Apparel</h2>
           <p>Explore limited-edition collections crafted by visionary artists.</p>
-          <button>Discover the Latest Drop</button> {/* Button could link to the current collection */}
+          <button>Discover the Latest Drop</button>
         </div>
       </section>
 
-      {/* Wrapper for the dynamically changing content */}
-      <div className="collection-content-wrapper" key={currentCollection.id}> {/* Use key for transitions */}
-        <section id="collections" className="featured-collection">
-          <h2>Featured Collection: {currentCollection.artist} - {currentCollection.title}</h2>
-          <div className="collection-intro">
-            <div className="collection-visual">
-              <img src={currentCollection.visual} alt={`Visual representing the ${currentCollection.title} collection by ${currentCollection.artist}`} />
-            </div>
-            <div className="artist-story">
-              <h3>Meet the Artist: {currentCollection.artist}</h3>
-              <p>{currentCollection.artistStory}</p>
-              {/* Link might go to a dedicated collection page */}
-              <a href={`/collections/${currentCollection.id}`} className="cta-link">Explore the Full Collection</a>
-            </div>
+      {/* --- Featured Collection Section --- */}
+      <section id="collections" className="featured-collection-section">
+        {/* Static Title */}
+        <h2>Featured Collaborations</h2>
+
+        {/* Slider Container */}
+        <div className="collection-slider">
+          <div className="slider-wrapper" style={{ transform: `translateX(-${activeIndex * 100}%)` }}>
+            {/* Map through collaborations data */}
+            {collaborationsData.map((collab, index) => (
+              <div className="collection-slide" key={collab.id}>
+                <div className="collection-intro">
+                  <div className="collection-visual">
+                    <img src={collab.imageUrl} alt={`Visual representing the ${collab.collectionTitle} collection by ${collab.artistName}`} />
+                  </div>
+                  <div className="artist-story">
+                    <h3>{collab.artistName}</h3>
+                    <h4>{collab.collectionTitle}</h4>
+                    <p>{collab.description}</p>
+                    <a href={collab.collectionLink} className="cta-link">Explore the Collection Story</a>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
-        </section>
+        </div>
 
-        <section id="story" className="our-story-section">
-          <h2>The Narrative: {currentCollection.title}</h2>
-          <p>{currentCollection.narrative}</p>
-        </section>
+        {/* Dot Indicators */}
+        <div className="slider-dots">
+          {collaborationsData.map((_, index) => (
+            <button
+              key={index}
+              className={`dot ${index === activeIndex ? 'active' : ''}`}
+              onClick={() => goToSlide(index)}
+              aria-label={`Go to slide ${index + 1}`}
+            />
+          ))}
+        </div>
+      </section>
+      {/* --- End Featured Collection Section --- */}
 
-        <section id="about" className="about-brand">
-          <h2>Collection Philosophy</h2>
-          <p>{currentCollection.philosophy}</p>
-        </section>
-      </div>
+      <section id="story" className="our-story-section">
+        <h2>The HaKi Narrative</h2>
+        <p>HaKi isn't just a clothing brand; it's a canvas for collaboration. We partner with emerging and established artists, giving them a platform to translate their unique perspectives into wearable art. Each collection tells a story, inviting you to connect with the art and the artist.</p>
+      </section>
 
-      {/* Dot Indicator */}
-      <CollectionIndicator
-        count={collections.length}
-        currentIndex={currentCollectionIndex}
-        onSelect={handleSelectCollection}
-      />
+      <section id="about" className="about-brand">
+        <h2>Our Philosophy</h2>
+        <p>We champion artistic expression and sustainable practices. Our goal is to create meaningful pieces that resonate, fostering a community around art, design, and mindful consumption.</p>
+      </section>
 
       <footer className="main-footer">
         <div className="footer-links">
