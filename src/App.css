@@ -284,6 +284,40 @@ a:hover {
     line-height: 1.9; /* Increased line height */
 }
 
+/* Wrapper for Dynamic Collection Content */
+.collection-content-wrapper {
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
+}
+
+/* Styles for Collection Indicator */
+.collection-indicator {
+  text-align: center;
+  margin: 40px 0 60px; /* Add spacing around the dots */
+}
+
+.dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin: 0 6px;
+  background-color: #dcdcdc; /* Light grey inactive dot */
+  border-radius: 50%;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.dot:hover {
+  background-color: #bbb;
+  transform: scale(1.1);
+}
+
+.dot.active {
+  background-color: #8a78d0; /* Use accent color for active dot */
+  transform: scale(1.2);
+}
 
 /* Footer */
 .main-footer {
