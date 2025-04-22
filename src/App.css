@@ -7,8 +7,9 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #ffffff; /* Cleaner white background */
-  color: #212121; /* Slightly softer black for text */
+  /* -- Warm Palette -- */
+  background-color: #FFFBF5; /* Soft Cream Background */
+  color: #5D534A; /* Muted Brown Text */
   line-height: 1.7;
 }
 
@@ -18,19 +19,20 @@ code {
 }
 
 h1, h2, h3 {
-  font-weight: 500; /* Medium weight for headings */
+  font-weight: 500;
   letter-spacing: -0.5px;
+  color: #4E4843; /* Slightly darker brown for headings */
 }
 
 a {
-  color: #424242; /* Darker grey for links */
+  color: #8C7D70; /* Muted accent for links */
   text-decoration: none;
   transition: color 0.3s ease, opacity 0.3s ease;
 }
 
 a:hover {
-  color: #000000;
-  opacity: 0.8;
+  color: #E8A87C; /* Warm Accent on Hover */
+  opacity: 1;
 }
 
 /* App Container */
@@ -40,10 +42,9 @@ a:hover {
 
 /* Landing Page Specific Styles */
 .landing-page {
-  max-width: 1300px; /* Slightly wider */
-  margin: 0 auto; /* Center the content */
-  padding: 0 30px; /* Increased padding */
-  /* text-align: left; -- Default browser behavior */
+  max-width: 1200px; /* Adjusted width for minimalism */
+  margin: 0 auto;
+  padding: 0 25px;
 }
 
 /* Header */
@@ -51,93 +52,96 @@ a:hover {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 25px 0; /* Increased padding */
-  border-bottom: 1px solid #eeeeee; /* Lighter border */
-  margin-bottom: 60px; /* Increased spacing */
+  padding: 30px 0;
+  border-bottom: 1px solid #F0EBE3; /* Lighter warm border */
+  margin-bottom: 70px;
 }
 
 .main-header h1 {
   margin: 0;
   font-size: 1.9em;
-  font-weight: 600; /* Bolder for brand name */
+  font-weight: 600;
   letter-spacing: -1px;
 }
 
 .main-header nav a {
-  margin-left: 30px; /* Increased spacing */
+  margin-left: 35px; /* Slightly more space */
   font-size: 1em;
   font-weight: 500;
 }
 
 /* Hero Section */
 .hero-section {
-  position: relative; /* For potential overlay content */
-  min-height: 70vh; /* Taller */
+  position: relative;
+  min-height: 65vh; /* Slightly less tall */
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #f0f0f0; /* Lighter placeholder background */
+  background-color: #EADBC8; /* Muted warm placeholder background */
   background-size: cover;
   background-position: center;
-  margin-bottom: 80px; /* More space */
-  color: #ffffff; /* White text */
+  margin-bottom: 90px;
+  color: #ffffff; /* Keep text white for contrast on overlay */
   text-align: center;
   padding: 20px;
-  border-radius: 8px; /* Subtle rounding */
-  overflow: hidden; /* Ensure background respects border-radius */
+  border-radius: 12px; /* Softer rounding */
+  overflow: hidden;
 }
 
-.hero-section::before { /* Optional overlay for better text contrast */
+.hero-section::before { /* Blurred Overlay */
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.35); /* Slightly darker overlay */
+    background-color: rgba(40, 35, 30, 0.3); /* Darker warm overlay */
+    backdrop-filter: blur(8px); /* Apply blur */
+    -webkit-backdrop-filter: blur(8px); /* Safari support */
     z-index: 1;
 }
 
 .hero-content {
-  /* background-color: rgba(0, 0, 0, 0.4); remove direct background */
   padding: 40px;
   border-radius: 5px;
-  position: relative; /* Ensure content is above overlay */
+  position: relative;
   z-index: 2;
 }
 
 .hero-content h2 {
-  font-size: 3.2em; /* Larger heading */
+  font-size: 3.1em;
   margin-bottom: 20px;
   font-weight: 600;
   line-height: 1.2;
+  color: #ffffff; /* Ensure heading is white */
 }
 
 .hero-content p {
-  font-size: 1.3em;
-  margin-bottom: 35px;
-  font-weight: 300; /* Lighter paragraph text */
-  max-width: 600px; /* Limit width for readability */
+  font-size: 1.25em;
+  margin-bottom: 40px; /* More space before button */
+  font-weight: 300;
+  max-width: 550px;
   margin-left: auto;
   margin-right: auto;
 }
 
 .hero-content button {
-  padding: 14px 30px; /* Larger button */
+  padding: 15px 35px;
   font-size: 1.1em;
-  background-color: #ffffff;
-  color: #212121;
+  background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent white */
+  color: #5D534A; /* Muted Brown Text */
   border: none;
   cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
   font-weight: 500;
-  border-radius: 4px;
+  border-radius: 6px;
 }
 
 .hero-content button:hover {
-  background-color: #f0f0f0;
-  color: #000000;
-  transform: translateY(-2px); /* Subtle lift effect */
+  background-color: #ffffff; /* Solid white on hover */
+  color: #E8A87C; /* Warm Accent Color */
+  transform: translateY(-3px); /* Slightly more lift */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow on hover */
 }
 
 /* Section Titles */
@@ -145,21 +149,21 @@ a:hover {
 .about-brand h2,
 .our-story-section h2 {
   text-align: center;
-  margin-bottom: 50px; /* Increased bottom margin */
-  font-size: 2.4em; /* Larger section titles */
+  margin-bottom: 55px;
+  font-size: 2.3em;
   font-weight: 500;
-  color: #333;
+  color: #4E4843;
 }
 
 /* Featured Collection Section */
 .featured-collection {
-  margin-bottom: 80px;
+  margin-bottom: 90px;
 }
 
 .collection-intro {
-  display: grid; /* Use grid for better control */
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive columns */
-  gap: 60px; /* Increased gap */
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 50px; /* Slightly reduced gap */
   align-items: center;
 }
 
@@ -168,76 +172,89 @@ a:hover {
 }
 
 .artist-story h3 {
-    font-size: 1.8em; /* Larger subtitle */
+    font-size: 1.7em;
     margin-bottom: 20px;
     font-weight: 500;
 }
 
 .artist-story p {
-    font-size: 1.1em;
+    font-size: 1.05em; /* Slightly smaller */
     line-height: 1.8;
-    color: #555;
-    margin-bottom: 25px;
+    color: #7a6f64; /* Lighter brown */
+    margin-bottom: 30px;
 }
 
 .collection-visual {
-  /* flex: 1; No longer needed with grid */
-  text-align: center; /* Center image if container is wider */
+  text-align: center;
+  position: relative; /* For potential hover effects/overlays */
 }
 
 .collection-visual img {
   max-width: 100%;
   height: auto;
   display: block;
-  background-color: #e9e9e9; /* Slightly lighter placeholder */
-  border-radius: 6px; /* Rounded corners for image */
+  background-color: #F0EBE3; /* Warm placeholder */
+  border-radius: 10px; /* Softer rounding */
   margin: 0 auto;
+  transition: filter 0.4s ease; /* Transition for blur */
 }
+
+/* Optional: subtle blur on image hover */
+/*
+.collection-visual:hover img {
+  filter: blur(3px);
+}
+*/
 
 .cta-link {
     display: inline-block;
     font-weight: 500;
-    color: #1a1a1a;
-    border-bottom: 1px solid #ccc;
-    padding-bottom: 2px;
-    transition: border-color 0.3s ease;
+    color: #8C7D70;
+    border-bottom: 1px solid #EADBC8; /* Warm border */
+    padding-bottom: 3px;
+    transition: color 0.3s ease, border-color 0.3s ease;
 }
 
 .cta-link:hover {
-    color: #000;
-    border-color: #000;
+    color: #E8A87C; /* Warm Accent */
+    border-color: #E8A87C;
 }
 
 /* Our Story / About Sections */
 .our-story-section,
 .about-brand {
-  background-color: #f9f9f9; /* Very light grey background */
-  padding: 60px 40px; /* Increased padding */
-  margin-bottom: 80px;
-  border-radius: 8px;
-  /* box-shadow: 0 4px 10px rgba(0,0,0,0.04); Subtle shadow */
-  text-align: center; /* Center text within these sections */
+  background-color: transparent; /* Remove background for minimalism */
+  padding: 40px 0; /* Reduced padding, no horizontal */
+  margin-bottom: 90px;
+  border-radius: 0; /* Remove rounding */
+  text-align: center;
+  border-top: 1px solid #F0EBE3; /* Add subtle separators */
+  border-bottom: 1px solid #F0EBE3;
+}
+
+.our-story-section:first-of-type {
+    border-top: none; /* Remove top border if it's the first section */
 }
 
 .our-story-section p,
 .about-brand p {
-    max-width: 700px; /* Limit paragraph width */
+    max-width: 650px;
     margin-left: auto;
     margin-right: auto;
-    font-size: 1.15em;
-    color: #444;
-    line-height: 1.8;
+    font-size: 1.1em;
+    color: #5D534A; /* Back to main text color */
+    line-height: 1.9; /* Increase line height slightly */
 }
 
 
 /* Footer */
 .main-footer {
-  border-top: 1px solid #eeeeee;
-  padding: 40px 0 30px; /* Adjusted padding */
+  border-top: 1px solid #F0EBE3; /* Lighter warm border */
+  padding: 40px 0 30px;
   margin-top: 60px;
   text-align: center;
   font-size: 0.95em;
-  color: #888;
+  color: #a89d93; /* Lighter warm grey */
 }
 
 .footer-links {
@@ -245,55 +262,76 @@ a:hover {
 }
 
 .footer-links a {
-    color: #666;
-    margin: 0 10px;
+    color: #8C7D70; /* Muted accent */
+    margin: 0 12px;
 }
 
 .footer-links a:hover {
-    color: #111;
+    color: #E8A87C; /* Warm accent */
 }
 
 /* Basic Responsive Adjustments */
 @media (max-width: 768px) {
   .landing-page {
-    padding: 0 15px;
+    padding: 0 20px;
   }
 
   .main-header {
     flex-direction: column;
-    gap: 15px;
-    margin-bottom: 40px;
+    gap: 20px;
+    padding: 20px 0;
+    margin-bottom: 50px;
+  }
+
+  .main-header nav {
+    display: flex; /* Ensure nav links stay inline */
+    flex-wrap: wrap; /* Allow wrapping on small screens */
+    justify-content: center;
   }
 
   .main-header nav a {
-    margin: 0 10px;
+    margin: 5px 10px; /* Adjust spacing for wrapping */
+  }
+
+  .hero-section {
+    min-height: 55vh;
+    margin-bottom: 70px;
+    border-radius: 10px;
   }
 
   .hero-content h2 {
-    font-size: 2.5em;
+    font-size: 2.4em;
   }
 
   .hero-content p {
     font-size: 1.1em;
+    margin-bottom: 30px;
   }
+
+   .hero-content button {
+      padding: 12px 25px;
+      font-size: 1em;
+   }
 
   .featured-collection h2,
   .about-brand h2,
   .our-story-section h2 {
-    font-size: 2em;
-    margin-bottom: 30px;
+    font-size: 1.9em;
+    margin-bottom: 40px;
   }
 
   .collection-intro {
-    gap: 30px;
+    gap: 40px;
+    grid-template-columns: 1fr; /* Stack columns on mobile */
   }
 
   .artist-story h3 {
-    font-size: 1.5em;
+    font-size: 1.6em;
   }
 
   .our-story-section,
   .about-brand {
-    padding: 40px 20px;
+    padding: 30px 0;
+    margin-bottom: 70px;
   }
 } 
