@@ -24,7 +24,7 @@ const collectionsData = [
 ];
 
 const LandingPage = () => {
-  const [collections, setCollections] = useState(collectionsData);
+  const [collections] = useState(collectionsData);
   const [currentCollectionIndex, setCurrentCollectionIndex] = useState(0);
 
   const handleSelectCollection = (index) => {
