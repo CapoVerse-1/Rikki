@@ -1,4 +1,13 @@
 /* General Reset & Body */
+:root {
+  --bg-color: #fdfdfd; /* Slightly off-white */
+  --text-color: #3a3a3a; /* Softer dark grey */
+  --primary-accent: #eaddd7; /* Warm, soft beige/pinkish tone */
+  --secondary-accent: #c7b9b5; /* Slightly darker warm tone */
+  --subtle-grey: #f0f0f0;
+  --border-color: #e0e0e0;
+}
+
 body {
   margin: 0;
   /* Suggesting cleaner, modern fonts */
@@ -7,44 +16,77 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* -- Warm Palette -- */
-  background-color: #FFFBF5; /* Soft Cream Background */
-  color: #5D534A; /* Muted Brown Text */
+  background-color: var(--bg-color);
+  color: var(--text-color);
   line-height: 1.7;
+  position: relative; /* Needed for background elements */
+  overflow-x: hidden; /* Prevent horizontal scroll from background elements */
+}
+
+/* Blurred background shapes (Example) */
+body::before {
+  content: '';
+  position: fixed; /* Fixed position */
+  top: 10vh;
+  left: -20vw;
+  width: 50vw;
+  height: 50vw;
+  background: radial-gradient(ellipse at center, var(--primary-accent) 0%, rgba(234, 221, 215, 0) 70%);
+  filter: blur(100px); /* Strong blur */
+  opacity: 0.4; /* Subtle */
+  z-index: -1; /* Behind content */
+  pointer-events: none; /* Prevent interaction */
+}
+
+body::after {
+    content: '';
+    position: fixed; /* Fixed position */
+    bottom: 5vh;
+    right: -15vw;
+    width: 40vw;
+    height: 40vw;
+    background: radial-gradient(ellipse at center, var(--secondary-accent) 0%, rgba(199, 185, 181, 0) 70%);
+    filter: blur(90px); /* Strong blur */
+    opacity: 0.3;
+    z-index: -1;
+    pointer-events: none;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+  background-color: var(--subtle-grey);
+  padding: 2px 4px;
+  border-radius: 3px;
 }
 
 h1, h2, h3 {
-  font-weight: 500;
+  font-weight: 500; /* Medium weight for headings */
   letter-spacing: -0.5px;
-  color: #4E4843; /* Slightly darker brown for headings */
+  color: #2c2c2c; /* Slightly darker heading color */
 }
 
 a {
-  color: #8C7D70; /* Muted accent for links */
+  color: var(--text-color);
   text-decoration: none;
-  transition: color 0.3s ease, opacity 0.3s ease;
+  transition: color 0.3s ease, border-color 0.3s ease;
 }
 
 a:hover {
-  color: #E8A87C; /* Warm Accent on Hover */
-  opacity: 1;
+  color: #000000;
 }
 
 /* App Container */
 .App {
-  /* text-align: center; -- Removing default center align */
+  position: relative; /* Ensure App content is above pseudo-elements */
+  z-index: 1;
 }
 
 /* Landing Page Specific Styles */
 .landing-page {
-  max-width: 1200px; /* Adjusted width for minimalism */
+  max-width: 1200px; /* Slightly narrower for minimalism */
   margin: 0 auto;
-  padding: 0 25px;
+  padding: 0 40px; /* Consistent padding */
 }
 
 /* Header */
@@ -53,95 +95,93 @@ a:hover {
   justify-content: space-between;
   align-items: center;
   padding: 30px 0;
-  border-bottom: 1px solid #F0EBE3; /* Lighter warm border */
-  margin-bottom: 70px;
+  border-bottom: 1px solid var(--border-color); /* Use variable */
+  margin-bottom: 80px; /* More space */
 }
 
 .main-header h1 {
   margin: 0;
-  font-size: 1.9em;
+  font-size: 2em;
   font-weight: 600;
   letter-spacing: -1px;
 }
 
 .main-header nav a {
-  margin-left: 35px; /* Slightly more space */
+  margin-left: 35px; /* More spacing */
   font-size: 1em;
-  font-weight: 500;
+  font-weight: 400; /* Lighter nav links */
+  padding-bottom: 5px;
+  border-bottom: 1px solid transparent; /* Prepare for hover effect */
+}
+
+.main-header nav a:hover {
+  color: #000000;
+  border-bottom-color: var(--secondary-accent); /* Subtle underline on hover */
 }
 
 /* Hero Section */
 .hero-section {
-  position: relative;
-  min-height: 65vh; /* Slightly less tall */
+  min-height: 65vh; /* Adjusted height */
   display: flex;
+  flex-direction: column; /* Stack content vertically */
   align-items: center;
   justify-content: center;
-  background-color: #EADBC8; /* Muted warm placeholder background */
-  background-size: cover;
-  background-position: center;
-  margin-bottom: 90px;
-  color: #ffffff; /* Keep text white for contrast on overlay */
+  background: none; /* Remove placeholder color */
+  margin-bottom: 100px; /* Increased space */
+  color: var(--text-color);
   text-align: center;
-  padding: 20px;
-  border-radius: 12px; /* Softer rounding */
-  overflow: hidden;
+  padding: 40px 20px;
+  border-radius: 0; /* Remove rounding */
+  overflow: visible; /* Allow content potentially */
+  position: relative; /* For absolute positioned elements if needed */
 }
 
-.hero-section::before { /* Blurred Overlay */
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(40, 35, 30, 0.3); /* Darker warm overlay */
-    backdrop-filter: blur(8px); /* Apply blur */
-    -webkit-backdrop-filter: blur(8px); /* Safari support */
-    z-index: 1;
+/* Remove the dark overlay */
+.hero-section::before {
+    display: none;
 }
 
 .hero-content {
-  padding: 40px;
-  border-radius: 5px;
+  background-color: transparent; /* No background */
+  padding: 0; /* Remove padding */
   position: relative;
   z-index: 2;
+  max-width: 700px; /* Constrain text width */
 }
 
 .hero-content h2 {
-  font-size: 3.1em;
-  margin-bottom: 20px;
+  font-size: 3.5em; /* Slightly larger */
+  margin-bottom: 25px;
   font-weight: 600;
-  line-height: 1.2;
-  color: #ffffff; /* Ensure heading is white */
+  line-height: 1.25;
+  color: #1a1a1a; /* Darker heading for contrast */
 }
 
 .hero-content p {
-  font-size: 1.25em;
-  margin-bottom: 40px; /* More space before button */
+  font-size: 1.25em; /* Adjusted size */
+  margin-bottom: 40px;
   font-weight: 300;
   max-width: 550px;
   margin-left: auto;
   margin-right: auto;
+  color: #555; /* Grey paragraph text */
 }
 
 .hero-content button {
-  padding: 15px 35px;
+  padding: 15px 35px; /* Adjusted padding */
   font-size: 1.1em;
-  background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent white */
-  color: #5D534A; /* Muted Brown Text */
-  border: none;
+  background-color: var(--text-color);
+  color: var(--bg-color);
+  border: 1px solid var(--text-color);
   cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease;
   font-weight: 500;
-  border-radius: 6px;
+  border-radius: 50px; /* Pill shape */
 }
 
 .hero-content button:hover {
-  background-color: #ffffff; /* Solid white on hover */
-  color: #E8A87C; /* Warm Accent Color */
-  transform: translateY(-3px); /* Slightly more lift */
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow on hover */
+  background-color: transparent;
+  color: var(--text-color);
 }
 
 /* Section Titles */
@@ -149,189 +189,190 @@ a:hover {
 .about-brand h2,
 .our-story-section h2 {
   text-align: center;
-  margin-bottom: 55px;
-  font-size: 2.3em;
+  margin-bottom: 60px; /* More space */
+  font-size: 2.6em;
   font-weight: 500;
-  color: #4E4843;
+  color: #333;
 }
 
-/* Featured Collection Section */
-.featured-collection {
-  margin-bottom: 90px;
+/* General Section Styling */
+.featured-collection,
+.our-story-section,
+.about-brand {
+    margin-bottom: 100px; /* Uniform bottom margin */
+    padding: 60px 0; /* Vertical padding, no horizontal */
+    background-color: transparent; /* Remove background colors */
+    border-radius: 0;
+    box-shadow: none; /* Remove shadows */
 }
 
+/* Featured Collection Section Specifics */
 .collection-intro {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 50px; /* Slightly reduced gap */
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); /* Adjust min size */
+  gap: 50px; /* Adjust gap */
   align-items: center;
 }
 
 .artist-story {
-  /* flex: 1; No longer needed with grid */
+  /* No specific styles needed here now */
 }
 
 .artist-story h3 {
-    font-size: 1.7em;
+    font-size: 1.7em; /* Adjusted size */
     margin-bottom: 20px;
     font-weight: 500;
+    color: #333;
 }
 
 .artist-story p {
     font-size: 1.05em; /* Slightly smaller */
     line-height: 1.8;
-    color: #7a6f64; /* Lighter brown */
+    color: #666; /* Softer text color */
     margin-bottom: 30px;
 }
 
 .collection-visual {
   text-align: center;
-  position: relative; /* For potential hover effects/overlays */
 }
 
 .collection-visual img {
   max-width: 100%;
   height: auto;
   display: block;
-  background-color: #F0EBE3; /* Warm placeholder */
-  border-radius: 10px; /* Softer rounding */
+  background-color: var(--subtle-grey); /* Use variable */
+  border-radius: 8px; /* Keep some rounding */
   margin: 0 auto;
-  transition: filter 0.4s ease; /* Transition for blur */
+  border: 1px solid var(--border-color);
 }
-
-/* Optional: subtle blur on image hover */
-/*
-.collection-visual:hover img {
-  filter: blur(3px);
-}
-*/
 
 .cta-link {
     display: inline-block;
     font-weight: 500;
-    color: #8C7D70;
-    border-bottom: 1px solid #EADBC8; /* Warm border */
+    color: var(--text-color);
+    border-bottom: 1px solid var(--secondary-accent); /* Use accent color */
     padding-bottom: 3px;
-    transition: color 0.3s ease, border-color 0.3s ease;
+    transition: border-color 0.3s ease, color 0.3s ease;
 }
 
 .cta-link:hover {
-    color: #E8A87C; /* Warm Accent */
-    border-color: #E8A87C;
+    color: #000;
+    border-color: var(--text-color); /* Darken border on hover */
 }
 
-/* Our Story / About Sections */
+/* Our Story / About Sections Specifics */
 .our-story-section,
 .about-brand {
-  background-color: transparent; /* Remove background for minimalism */
-  padding: 40px 0; /* Reduced padding, no horizontal */
-  margin-bottom: 90px;
-  border-radius: 0; /* Remove rounding */
   text-align: center;
-  border-top: 1px solid #F0EBE3; /* Add subtle separators */
-  border-bottom: 1px solid #F0EBE3;
-}
-
-.our-story-section:first-of-type {
-    border-top: none; /* Remove top border if it's the first section */
 }
 
 .our-story-section p,
 .about-brand p {
-    max-width: 650px;
+    max-width: 650px; /* Slightly narrower */
     margin-left: auto;
     margin-right: auto;
-    font-size: 1.1em;
-    color: #5D534A; /* Back to main text color */
-    line-height: 1.9; /* Increase line height slightly */
+    font-size: 1.1em; /* Adjusted */
+    color: #555;
+    line-height: 1.9; /* More line height */
 }
-
 
 /* Footer */
 .main-footer {
-  border-top: 1px solid #F0EBE3; /* Lighter warm border */
-  padding: 40px 0 30px;
-  margin-top: 60px;
+  border-top: 1px solid var(--border-color);
+  padding: 50px 0 40px;
+  margin-top: 80px; /* More space */
   text-align: center;
-  font-size: 0.95em;
-  color: #a89d93; /* Lighter warm grey */
+  font-size: 0.9em; /* Slightly smaller */
+  color: #999; /* Lighter grey */
 }
 
 .footer-links {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
 .footer-links a {
-    color: #8C7D70; /* Muted accent */
+    color: #888;
     margin: 0 12px;
+    font-size: 0.95em;
 }
 
 .footer-links a:hover {
-    color: #E8A87C; /* Warm accent */
+    color: var(--text-color);
 }
 
-/* Basic Responsive Adjustments */
+/* Responsive Adjustments */
 @media (max-width: 768px) {
   .landing-page {
     padding: 0 20px;
   }
 
+  body::before, body::after { /* Maybe hide or reduce blur on mobile */
+      opacity: 0.2;
+      filter: blur(60px);
+  }
+
   .main-header {
     flex-direction: column;
     gap: 20px;
-    padding: 20px 0;
     margin-bottom: 50px;
+    padding: 25px 0;
   }
 
   .main-header nav {
-    display: flex; /* Ensure nav links stay inline */
-    flex-wrap: wrap; /* Allow wrapping on small screens */
-    justify-content: center;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
   }
 
   .main-header nav a {
-    margin: 5px 10px; /* Adjust spacing for wrapping */
+    margin: 0 10px;
+    font-size: 0.95em;
   }
 
   .hero-section {
-    min-height: 55vh;
-    margin-bottom: 70px;
-    border-radius: 10px;
+      min-height: 50vh;
+      margin-bottom: 60px;
   }
 
   .hero-content h2 {
-    font-size: 2.4em;
+    font-size: 2.6em;
   }
 
   .hero-content p {
     font-size: 1.1em;
-    margin-bottom: 30px;
   }
 
-   .hero-content button {
-      padding: 12px 25px;
+  .hero-content button {
+      padding: 12px 28px;
       font-size: 1em;
-   }
+  }
 
   .featured-collection h2,
   .about-brand h2,
   .our-story-section h2 {
-    font-size: 1.9em;
+    font-size: 2.1em;
     margin-bottom: 40px;
   }
 
+   .featured-collection,
+   .our-story-section,
+   .about-brand {
+       margin-bottom: 60px;
+       padding: 40px 0;
+   }
+
   .collection-intro {
-    gap: 40px;
-    grid-template-columns: 1fr; /* Stack columns on mobile */
+    gap: 30px;
+    grid-template-columns: 1fr; /* Stack on mobile */
   }
 
   .artist-story h3 {
-    font-size: 1.6em;
+    font-size: 1.5em;
   }
 
-  .our-story-section,
-  .about-brand {
-    padding: 30px 0;
-    margin-bottom: 70px;
+  .our-story-section p,
+  .about-brand p {
+    font-size: 1em;
   }
 } 
