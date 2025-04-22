@@ -1,13 +1,4 @@
 /* General Reset & Body */
-:root {
-  /* Define warm, soft color palette */
-  --bg-color: #fdfdfa; /* Slightly off-white, warm background */
-  --text-color: #4a4a4a; /* Softer, warm dark grey */
-  --primary-accent: #d4c8b0; /* Muted beige/warm grey accent */
-  --secondary-accent: #ebeae6; /* Lighter warm grey */
-  --subtle-stroke: #dcdcdc; /* Very light grey for strokes */
-}
-
 body {
   margin: 0;
   /* Suggesting cleaner, modern fonts */
@@ -16,37 +7,38 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: var(--bg-color);
-  color: var(--text-color);
+  background-color: #ffffff; /* Keep main background white */
+  color: #3a3a3a; /* Slightly warmer dark text */
   line-height: 1.7;
-  position: relative; /* Needed for background elements */
-  overflow-x: hidden; /* Prevent horizontal scroll from background elements */
+  position: relative; /* Needed for pseudo-element positioning */
+  overflow-x: hidden; /* Prevent horizontal scroll from blurred elements */
 }
 
-/* Add blurred background elements */
+/* Blurred background elements */
 body::before, body::after {
     content: '';
     position: fixed; /* Use fixed to stay in viewport */
     border-radius: 50%;
-    opacity: 0.2; /* Very subtle */
-    z-index: -1; /* Behind content */
-    filter: blur(150px); /* Heavy blur */
-    pointer-events: none; /* Don't interfere with clicks */
+    opacity: 0.15; /* Make them subtle */
+    filter: blur(100px); /* Strong blur */
+    z-index: -1; /* Behind everything */
 }
 
+/* Warm Ellipse 1 */
 body::before {
-    width: 400px;
-    height: 400px;
-    background-color: var(--primary-accent);
-    top: 10%;
-    left: -100px;
-}
-
-body::after {
     width: 500px;
     height: 500px;
-    background-color: var(--secondary-accent);
-    bottom: 5%;
+    background-color: #ffeadd; /* Warm peach/beige tone */
+    top: -150px;
+    left: -200px;
+}
+
+/* Warm Ellipse 2 */
+body::after {
+    width: 400px;
+    height: 400px;
+    background-color: #e0d8ff; /* Soft lavender tone */
+    bottom: -100px;
     right: -150px;
 }
 
@@ -56,33 +48,34 @@ code {
 }
 
 h1, h2, h3 {
-  font-weight: 400; /* Lighter weight for minimalism */
-  letter-spacing: -0.2px;
-  color: #333; /* Slightly darker headings for contrast */
+  font-weight: 500;
+  letter-spacing: -0.5px;
+  color: #2c2c2c; /* Slightly darker heading color */
 }
 
 a {
-  color: var(--text-color);
+  color: #5a5a5a; /* Warmer grey link color */
   text-decoration: none;
   transition: color 0.3s ease, opacity 0.3s ease;
 }
 
 a:hover {
-  color: #000000;
-  opacity: 0.7; /* Slightly more subtle hover */
+  color: #1a1a1a; /* Darker warm grey on hover */
+  opacity: 1;
 }
 
 /* App Container */
 .App {
-  position: relative; /* Ensure content is above background blurs */
-  z-index: 1;
+  /* text-align: center; -- Removing default center align */
 }
 
 /* Landing Page Specific Styles */
 .landing-page {
-  max-width: 1200px; /* Slightly narrower for cleaner look */
+  max-width: 1200px; /* Slightly narrower for minimalism */
   margin: 0 auto;
-  padding: 0 40px; /* Adjust padding */
+  padding: 0 30px;
+  position: relative; /* Ensure content is above blurred elements */
+  z-index: 1;
 }
 
 /* Header */
@@ -90,99 +83,102 @@ a:hover {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 30px 0; /* Adjust padding */
-  border-bottom: 1px solid var(--secondary-accent); /* Use accent color */
-  margin-bottom: 70px;
+  padding: 30px 0; /* More vertical padding */
+  border-bottom: 1px solid #f0f0f0; /* Lighter border */
+  margin-bottom: 70px; /* Increased spacing */
 }
 
 .main-header h1 {
   margin: 0;
-  font-size: 1.8em;
-  font-weight: 500; /* Keep brand name slightly bolder */
-  letter-spacing: -0.5px;
+  font-size: 1.8em; /* Slightly smaller */
+  font-weight: 600;
+  letter-spacing: -0.8px;
 }
 
 .main-header nav a {
-  margin-left: 35px;
+  margin-left: 35px; /* More nav spacing */
   font-size: 0.95em; /* Slightly smaller nav links */
-  font-weight: 400;
-  padding-bottom: 3px;
-  border-bottom: 1px solid transparent; /* For hover effect */
-  transition: color 0.3s ease, border-color 0.3s ease;
+  font-weight: 400; /* Regular weight */
+  color: #666;
 }
 
 .main-header nav a:hover {
-  color: #000;
-  border-bottom-color: var(--primary-accent); /* Accent hover */
+    color: #000;
 }
 
-/* Hero Section */
+/* Hero Section - Retain Box Structure */
 .hero-section {
   position: relative;
-  min-height: 65vh; /* Adjust height */
+  min-height: 65vh; /* Adjusted height */
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: transparent; /* Remove background color */
-  /* background-image set inline */
+  background-color: #f8f8f8; /* Very light warm grey placeholder */
   background-size: cover;
   background-position: center;
-  margin-bottom: 90px;
-  color: var(--text-color); /* Use default text color */
+  margin-bottom: 90px; /* More space */
+  color: #ffffff;
   text-align: center;
-  padding: 20px;
-  border-radius: 0; /* Remove border radius for cleaner look */
-  overflow: visible; /* Allow content to flow */
+  padding: 30px;
+  border-radius: 10px; /* Slightly larger radius */
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03); /* Very subtle shadow */
 }
 
-/* Remove dark overlay if hero image has enough contrast or for minimal look */
-.hero-section::before {
-    display: none;
-    /* Alternatively, make it much lighter if needed for text */
-    /* background-color: rgba(255, 255, 255, 0.2); */
+.hero-section::before { /* Overlay for text contrast */
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3)); /* Softer gradient overlay */
+    z-index: 1;
 }
 
 .hero-content {
-  padding: 40px 0; /* Adjust padding */
+  padding: 40px;
+  border-radius: 5px;
   position: relative;
   z-index: 2;
 }
 
 .hero-content h2 {
-  font-size: 3em;
-  margin-bottom: 25px;
-  font-weight: 500;
+  font-size: 3em; /* Adjusted size */
+  margin-bottom: 20px;
+  font-weight: 600;
   line-height: 1.2;
-  color: #222; /* Ensure heading is readable */
+  color: #ffffff; /* Ensure white text on overlay */
 }
 
 .hero-content p {
-  font-size: 1.2em;
-  margin-bottom: 40px;
+  font-size: 1.2em; /* Adjusted size */
+  margin-bottom: 35px;
   font-weight: 300;
   max-width: 550px;
   margin-left: auto;
   margin-right: auto;
-  color: var(--text-color);
+  color: rgba(255, 255, 255, 0.9); /* Slightly transparent white */
 }
 
 .hero-content button {
-  padding: 12px 28px;
-  font-size: 1em;
-  background-color: transparent;
-  color: var(--text-color);
-  border: 1px solid var(--primary-accent); /* Accent border */
+  padding: 15px 35px; /* Adjusted padding */
+  font-size: 1em; /* Adjusted size */
+  background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent white button */
+  color: #333;
+  border: none;
   cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
-  font-weight: 400;
-  border-radius: 30px; /* Pill shape */
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  font-weight: 500;
+  border-radius: 6px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
 }
 
 .hero-content button:hover {
-  background-color: var(--primary-accent);
-  color: #fff;
-  border-color: var(--primary-accent);
-  transform: translateY(-2px);
+  background-color: #ffffff;
+  color: #111;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
 }
 
 /* Section Titles */
@@ -191,9 +187,9 @@ a:hover {
 .our-story-section h2 {
   text-align: center;
   margin-bottom: 60px;
-  font-size: 2.2em;
-  font-weight: 400;
-  color: #333;
+  font-size: 2.2em; /* Adjusted size */
+  font-weight: 500;
+  color: #444;
 }
 
 /* Featured Collection Section */
@@ -204,121 +200,157 @@ a:hover {
 .collection-intro {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 50px;
+  gap: 50px; /* Adjusted gap */
   align-items: center;
 }
 
+.artist-story {
+  padding-right: 20px; /* Add some padding */
+}
+
 .artist-story h3 {
-    font-size: 1.6em;
+    font-size: 1.6em; /* Adjusted size */
     margin-bottom: 15px;
-    font-weight: 400;
+    font-weight: 500;
+    color: #555;
 }
 
 .artist-story p {
-    font-size: 1.05em; /* Slightly smaller */
+    font-size: 1.05em; /* Adjusted size */
     line-height: 1.8;
-    color: var(--text-color);
-    margin-bottom: 30px;
+    color: #6b6b6b; /* Warmer paragraph text */
+    margin-bottom: 25px;
+}
+
+.collection-visual {
+  text-align: center;
 }
 
 .collection-visual img {
   max-width: 100%;
   height: auto;
   display: block;
-  background-color: transparent; /* Remove placeholder color */
-  border: 1px solid var(--secondary-accent); /* Subtle border */
-  border-radius: 4px;
+  background-color: #f5f5f5; /* Lighter placeholder */
+  border-radius: 8px; /* Consistent rounding */
   margin: 0 auto;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.collection-visual:hover img {
+    transform: scale(1.03);
+    box-shadow: 0 8px 25px rgba(0,0,0, 0.07);
 }
 
 .cta-link {
     display: inline-block;
     font-weight: 500;
-    color: var(--text-color);
-    border-bottom: 1px solid var(--primary-accent);
-    padding-bottom: 2px;
+    color: #b8a4ff; /* Accent color - soft lavender */
+    border-bottom: 1px solid transparent; /* Transparent border initially */
+    padding-bottom: 3px;
     transition: border-color 0.3s ease, color 0.3s ease;
 }
 
 .cta-link:hover {
-    color: #000;
-    border-color: var(--text-color);
+    color: #8a78d0; /* Darker lavender */
+    border-color: #d9ceff; /* Lighter lavender border */
 }
 
 /* Our Story / About Sections */
 .our-story-section,
 .about-brand {
-  background-color: transparent; /* Remove distinct background */
-  padding: 60px 0; /* Adjust padding, remove horizontal */
+  background-color: transparent; /* Remove background color for minimalism */
+  padding: 50px 0; /* Adjusted padding, remove horizontal padding */
   margin-bottom: 90px;
-  border-radius: 0;
+  border: none; /* Remove border */
+  box-shadow: none; /* Remove shadow */
   text-align: center;
-  border-top: 1px solid var(--secondary-accent); /* Add subtle separators */
-  border-bottom: 1px solid var(--secondary-accent);
 }
 
-/* Add top border only to the first one */
-.our-story-section {
-    border-bottom: none; /* Avoid double border */
+.our-story-section h2,
+.about-brand h2 {
+    border-bottom: 1px solid #eee; /* Add a subtle separator line */
+    display: inline-block;
+    padding-bottom: 10px;
+    margin-bottom: 40px;
 }
 
 .our-story-section p,
 .about-brand p {
-    max-width: 650px;
+    max-width: 650px; /* Adjusted width */
     margin-left: auto;
     margin-right: auto;
-    font-size: 1.1em;
-    color: var(--text-color);
-    line-height: 1.9; /* Slightly more line height */
+    font-size: 1.1em; /* Adjusted size */
+    color: #5f5f5f;
+    line-height: 1.9; /* Increased line height */
 }
 
 
 /* Footer */
 .main-footer {
-  border-top: 1px solid var(--secondary-accent);
-  padding: 50px 0 40px;
+  border-top: 1px solid #f0f0f0; /* Lighter footer border */
+  padding: 40px 0 30px;
   margin-top: 70px;
   text-align: center;
-  font-size: 0.9em; /* Smaller footer text */
-  color: #aaa; /* Lighter grey */
+  font-size: 0.9em; /* Slightly smaller footer text */
+  color: #aaa;
 }
 
 .footer-links {
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
 .footer-links a {
-    color: #888; /* Lighter links */
+    color: #999;
     margin: 0 12px;
-    font-size: 0.95em;
+    transition: color 0.3s ease;
 }
 
 .footer-links a:hover {
-    color: var(--text-color);
+    color: #555;
 }
 
 /* Basic Responsive Adjustments */
 @media (max-width: 768px) {
+  body::before, body::after {
+    filter: blur(70px); /* Less blur on mobile */
+    opacity: 0.1;
+  }
+  body::before {
+    width: 300px;
+    height: 300px;
+    top: -100px;
+    left: -150px;
+  }
+  body::after {
+    width: 250px;
+    height: 250px;
+    bottom: -80px;
+    right: -100px;
+  }
+
   .landing-page {
     padding: 0 20px;
   }
 
-  body::before, body::after {
-    filter: blur(100px); /* Less blur on mobile */
-    opacity: 0.15;
-  }
-  body::before { width: 300px; height: 300px; }
-  body::after { width: 400px; height: 400px; }
-
   .main-header {
     flex-direction: column;
     gap: 20px;
-    margin-bottom: 50px;
     padding: 20px 0;
+    margin-bottom: 50px;
+  }
+
+  .main-header nav {
+      text-align: center;
   }
 
   .main-header nav a {
-    margin: 0 15px;
+    margin: 0 12px;
+    font-size: 1em;
+  }
+
+  .hero-section {
+      min-height: 50vh;
+      margin-bottom: 60px;
   }
 
   .hero-content h2 {
@@ -330,8 +362,8 @@ a:hover {
   }
 
   .hero-content button {
-    padding: 10px 24px;
-    font-size: 0.95em;
+      padding: 12px 28px;
+      font-size: 0.95em;
   }
 
   .featured-collection h2,
@@ -343,15 +375,26 @@ a:hover {
 
   .collection-intro {
     gap: 40px;
+    grid-template-columns: 1fr; /* Stack on mobile */
+  }
+
+  .artist-story {
+      padding-right: 0;
+      text-align: center;
   }
 
   .artist-story h3 {
-    font-size: 1.4em;
+    font-size: 1.5em;
   }
 
   .our-story-section,
   .about-brand {
-    padding: 40px 0;
+    padding: 30px 0;
     margin-bottom: 60px;
+  }
+
+  .our-story-section p,
+  .about-brand p {
+      font-size: 1em;
   }
 } 
