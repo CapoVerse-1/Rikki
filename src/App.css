@@ -1,12 +1,11 @@
 /* General Reset & Body */
 :root {
-  --bg-color: #fdfdfd; /* Very light, almost white */
-  --text-color: #4a4a4a; /* Softer grey-black */
-  --subtle-gray: #f0f0f0; /* Lighter gray for backgrounds/borders */
-  --accent-stroke: #e0e0e0; /* Very light gray for strokes */
-  --warm-blur-1: rgba(245, 230, 220, 0.5); /* Pale warm tone for blur */
-  --warm-blur-2: rgba(230, 220, 240, 0.4); /* Pale cool tone for contrast blur */
-  --hover-bg: #f5f5f5;
+  /* Define warm, soft color palette */
+  --bg-color: #fdfdfa; /* Slightly off-white, warm background */
+  --text-color: #4a4a4a; /* Softer, warm dark grey */
+  --primary-accent: #d4c8b0; /* Muted beige/warm grey accent */
+  --secondary-accent: #ebeae6; /* Lighter warm grey */
+  --subtle-stroke: #dcdcdc; /* Very light grey for strokes */
 }
 
 body {
@@ -20,24 +19,25 @@ body {
   background-color: var(--bg-color);
   color: var(--text-color);
   line-height: 1.7;
-  position: relative; /* Needed for absolute positioned pseudo-elements */
-  overflow-x: hidden; /* Prevent horizontal scroll from blurred shapes */
+  position: relative; /* Needed for background elements */
+  overflow-x: hidden; /* Prevent horizontal scroll from background elements */
 }
 
-/* Blurred Background Shapes */
+/* Add blurred background elements */
 body::before, body::after {
     content: '';
     position: fixed; /* Use fixed to stay in viewport */
     border-radius: 50%;
+    opacity: 0.2; /* Very subtle */
+    z-index: -1; /* Behind content */
     filter: blur(150px); /* Heavy blur */
-    z-index: -1; /* Behind everything */
-    opacity: 0.6; /* Make them subtle */
+    pointer-events: none; /* Don't interfere with clicks */
 }
 
 body::before {
     width: 400px;
     height: 400px;
-    background: var(--warm-blur-1);
+    background-color: var(--primary-accent);
     top: 10%;
     left: -100px;
 }
@@ -45,7 +45,7 @@ body::before {
 body::after {
     width: 500px;
     height: 500px;
-    background: var(--warm-blur-2);
+    background-color: var(--secondary-accent);
     bottom: 5%;
     right: -150px;
 }
@@ -53,15 +53,12 @@ body::after {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
-  background-color: var(--subtle-gray);
-  padding: 2px 4px;
-  border-radius: 3px;
-  font-size: 0.9em;
 }
 
 h1, h2, h3 {
   font-weight: 400; /* Lighter weight for minimalism */
   letter-spacing: -0.2px;
+  color: #333; /* Slightly darker headings for contrast */
 }
 
 a {
@@ -71,21 +68,21 @@ a {
 }
 
 a:hover {
-  color: #000000; /* Keep black for hover clarity */
-  opacity: 0.7;
+  color: #000000;
+  opacity: 0.7; /* Slightly more subtle hover */
 }
 
 /* App Container */
 .App {
-  position: relative; /* Ensure content is above pseudo-elements */
+  position: relative; /* Ensure content is above background blurs */
   z-index: 1;
 }
 
 /* Landing Page Specific Styles */
 .landing-page {
-  max-width: 1100px; /* Slightly narrower for minimalist feel */
+  max-width: 1200px; /* Slightly narrower for cleaner look */
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 40px; /* Adjust padding */
 }
 
 /* Header */
@@ -93,87 +90,98 @@ a:hover {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 30px 0; /* More vertical padding */
-  border-bottom: 1px solid var(--accent-stroke); /* Lighter accent stroke */
-  margin-bottom: 80px; /* More spacing */
+  padding: 30px 0; /* Adjust padding */
+  border-bottom: 1px solid var(--secondary-accent); /* Use accent color */
+  margin-bottom: 70px;
 }
 
 .main-header h1 {
   margin: 0;
-  font-size: 1.7em; /* Slightly smaller */
-  font-weight: 500; /* Medium weight for brand */
+  font-size: 1.8em;
+  font-weight: 500; /* Keep brand name slightly bolder */
   letter-spacing: -0.5px;
 }
 
 .main-header nav a {
-  margin-left: 35px; /* More spacing */
-  font-size: 0.95em;
+  margin-left: 35px;
+  font-size: 0.95em; /* Slightly smaller nav links */
   font-weight: 400;
-  color: #666; /* Slightly muted nav links */
+  padding-bottom: 3px;
+  border-bottom: 1px solid transparent; /* For hover effect */
+  transition: color 0.3s ease, border-color 0.3s ease;
 }
 
 .main-header nav a:hover {
-    color: #000;
+  color: #000;
+  border-bottom-color: var(--primary-accent); /* Accent hover */
 }
 
 /* Hero Section */
 .hero-section {
   position: relative;
-  min-height: 65vh; /* Slightly less tall */
+  min-height: 65vh; /* Adjust height */
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: transparent; /* Remove placeholder color */
+  background-color: transparent; /* Remove background color */
+  /* background-image set inline */
   background-size: cover;
   background-position: center;
-  margin-bottom: 100px; /* Increased space */
+  margin-bottom: 90px;
   color: var(--text-color); /* Use default text color */
   text-align: center;
   padding: 20px;
-  border-radius: 0; /* Remove rounding */
-  overflow: visible; /* Allow content to feel less boxed in */
+  border-radius: 0; /* Remove border radius for cleaner look */
+  overflow: visible; /* Allow content to flow */
+}
+
+/* Remove dark overlay if hero image has enough contrast or for minimal look */
+.hero-section::before {
+    display: none;
+    /* Alternatively, make it much lighter if needed for text */
+    /* background-color: rgba(255, 255, 255, 0.2); */
 }
 
 .hero-content {
-  padding: 40px 0; /* Padding vertical only */
-  border-radius: 0;
+  padding: 40px 0; /* Adjust padding */
   position: relative;
   z-index: 2;
-  background: none; /* Remove dark background */
 }
 
 .hero-content h2 {
-  font-size: 3em; /* Adjusted size */
+  font-size: 3em;
   margin-bottom: 25px;
   font-weight: 500;
-  line-height: 1.3;
+  line-height: 1.2;
+  color: #222; /* Ensure heading is readable */
 }
 
 .hero-content p {
-  font-size: 1.2em; /* Adjusted size */
+  font-size: 1.2em;
   margin-bottom: 40px;
   font-weight: 300;
   max-width: 550px;
   margin-left: auto;
   margin-right: auto;
-  color: #555; /* Slightly lighter paragraph */
+  color: var(--text-color);
 }
 
 .hero-content button {
-  padding: 12px 28px; /* Adjusted padding */
+  padding: 12px 28px;
   font-size: 1em;
-  background-color: var(--text-color); /* Dark button */
-  color: var(--bg-color); /* Light text */
-  border: none;
+  background-color: transparent;
+  color: var(--text-color);
+  border: 1px solid var(--primary-accent); /* Accent border */
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  font-weight: 500;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+  font-weight: 400;
   border-radius: 30px; /* Pill shape */
 }
 
 .hero-content button:hover {
-  background-color: #000000; /* Black on hover */
-  color: var(--bg-color);
+  background-color: var(--primary-accent);
+  color: #fff;
+  border-color: var(--primary-accent);
   transform: translateY(-2px);
 }
 
@@ -185,48 +193,41 @@ a:hover {
   margin-bottom: 60px;
   font-size: 2.2em;
   font-weight: 400;
-  color: var(--text-color);
+  color: #333;
 }
 
 /* Featured Collection Section */
 .featured-collection {
-  margin-bottom: 100px;
+  margin-bottom: 90px;
 }
 
 .collection-intro {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 50px; /* Adjusted gap */
+  gap: 50px;
   align-items: center;
-}
-
-.artist-story {
-  /* No specific styles needed now */
 }
 
 .artist-story h3 {
     font-size: 1.6em;
     margin-bottom: 15px;
-    font-weight: 500;
+    font-weight: 400;
 }
 
 .artist-story p {
-    font-size: 1.05em;
+    font-size: 1.05em; /* Slightly smaller */
     line-height: 1.8;
-    color: #666;
+    color: var(--text-color);
     margin-bottom: 30px;
-}
-
-.collection-visual {
-  text-align: center;
 }
 
 .collection-visual img {
   max-width: 100%;
   height: auto;
   display: block;
-  background-color: var(--subtle-gray); /* Subtle placeholder */
-  border-radius: 4px; /* Minimal rounding */
+  background-color: transparent; /* Remove placeholder color */
+  border: 1px solid var(--secondary-accent); /* Subtle border */
+  border-radius: 4px;
   margin: 0 auto;
 }
 
@@ -234,24 +235,31 @@ a:hover {
     display: inline-block;
     font-weight: 500;
     color: var(--text-color);
-    border-bottom: 1px solid var(--accent-stroke);
-    padding-bottom: 3px;
+    border-bottom: 1px solid var(--primary-accent);
+    padding-bottom: 2px;
     transition: border-color 0.3s ease, color 0.3s ease;
 }
 
 .cta-link:hover {
     color: #000;
-    border-color: #aaa; /* Slightly darker border on hover */
+    border-color: var(--text-color);
 }
 
 /* Our Story / About Sections */
 .our-story-section,
 .about-brand {
-  background-color: transparent; /* Remove background color */
-  padding: 60px 0; /* Vertical padding only */
-  margin-bottom: 100px;
+  background-color: transparent; /* Remove distinct background */
+  padding: 60px 0; /* Adjust padding, remove horizontal */
+  margin-bottom: 90px;
   border-radius: 0;
   text-align: center;
+  border-top: 1px solid var(--secondary-accent); /* Add subtle separators */
+  border-bottom: 1px solid var(--secondary-accent);
+}
+
+/* Add top border only to the first one */
+.our-story-section {
+    border-bottom: none; /* Avoid double border */
 }
 
 .our-story-section p,
@@ -260,19 +268,19 @@ a:hover {
     margin-left: auto;
     margin-right: auto;
     font-size: 1.1em;
-    color: #555;
+    color: var(--text-color);
     line-height: 1.9; /* Slightly more line height */
 }
 
 
 /* Footer */
 .main-footer {
-  border-top: 1px solid var(--accent-stroke);
+  border-top: 1px solid var(--secondary-accent);
   padding: 50px 0 40px;
-  margin-top: 80px;
+  margin-top: 70px;
   text-align: center;
-  font-size: 0.9em;
-  color: #999; /* Lighter footer text */
+  font-size: 0.9em; /* Smaller footer text */
+  color: #aaa; /* Lighter grey */
 }
 
 .footer-links {
@@ -280,50 +288,50 @@ a:hover {
 }
 
 .footer-links a {
-    color: #888;
+    color: #888; /* Lighter links */
     margin: 0 12px;
     font-size: 0.95em;
-    transition: color 0.3s ease;
 }
 
 .footer-links a:hover {
     color: var(--text-color);
 }
 
-/* Basic Responsive Adjustments (Keeping structure, adjusting spacing/size) */
+/* Basic Responsive Adjustments */
 @media (max-width: 768px) {
-  body::before, body::after {
-      /* Optionally hide or shrink blurs on mobile */
-      display: none;
+  .landing-page {
+    padding: 0 20px;
   }
 
-  .landing-page {
-    padding: 0 15px;
+  body::before, body::after {
+    filter: blur(100px); /* Less blur on mobile */
+    opacity: 0.15;
   }
+  body::before { width: 300px; height: 300px; }
+  body::after { width: 400px; height: 400px; }
 
   .main-header {
     flex-direction: column;
     gap: 20px;
-    padding: 25px 0;
     margin-bottom: 50px;
+    padding: 20px 0;
   }
 
   .main-header nav a {
     margin: 0 15px;
   }
 
-  .hero-section {
-      min-height: 50vh;
-      margin-bottom: 60px;
-  }
-
   .hero-content h2 {
-    font-size: 2.3em;
+    font-size: 2.2em;
   }
 
   .hero-content p {
     font-size: 1.05em;
-    margin-bottom: 30px;
+  }
+
+  .hero-content button {
+    padding: 10px 24px;
+    font-size: 0.95em;
   }
 
   .featured-collection h2,
@@ -339,10 +347,6 @@ a:hover {
 
   .artist-story h3 {
     font-size: 1.4em;
-  }
-
-   .artist-story p {
-    font-size: 1em;
   }
 
   .our-story-section,
