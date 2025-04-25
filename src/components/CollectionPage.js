@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom'; // Added Link import
 import './CollectionPage.css'; // We'll create this CSS file
+import collectionHeroBg from '../assets/collection-hero-bg.jpg'; // Import collection hero image
 
 // --- Sample Data (Replace with data fetching based on :collectionSlug) ---
 const collectionDetails = {
@@ -8,7 +9,7 @@ const collectionDetails = {
     artistName: "Benjamin Heinze",
     collectionTitle: "Urban Canvas",
     artistPortraitUrl: "/Artist PP/WhatsApp Bild 2025-04-25 um 15.58.55_143d490f.jpg", // Updated Path
-    heroImageUrl: "/first picture/WhatsApp Bild 2025-04-25 um 15.48.20_f726f5f8.jpg", // Corrected hero path from previous step
+    // heroImageUrl removed - will be imported directly
     introduction: "Benjamin Heinze translates the raw, untamed energy of the city onto fabric. Her 'Urban Canvas' collection is a dialogue between street art aesthetics and contemporary fashion, exploring themes of decay and rebirth found in the urban landscape.",
     storySections: [
       {
@@ -252,8 +253,8 @@ const CollectionPage = () => {
          <div className="cart-icon-placeholder">🛒</div> 
        </header>
 
-       {/* Updated Hero Image */}
-       <section className="collection-hero" style={{ backgroundImage: `url('/first picture/WhatsApp Bild 2025-04-25 um 15.48.20_f726f5f8.jpg')` }}>
+       {/* Updated Hero Image - Use imported image */}
+       <section className="collection-hero" style={{ backgroundImage: `url(${collectionHeroBg})` }}>
            {/* Can add overlay content if needed */}
        </section>
 
