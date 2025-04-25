@@ -106,8 +106,11 @@ const CollectionPage = () => {
 
   // MOVED: Cleanup timeouts on unmount (moved before early return)
   useEffect(() => {
+    // Capture the current value of the ref inside the effect
+    const timeouts = hoverTimeoutRefs.current;
     return () => {
-        Object.values(hoverTimeoutRefs.current).forEach(clearTimeout);
+        // Use the captured value in the cleanup
+        Object.values(timeouts).forEach(clearTimeout);
     };
   }, []);
 
@@ -215,7 +218,7 @@ const CollectionPage = () => {
         <div className="initial-product-image-slider"> 
           <div className="initial-product-image-wrapper" style={{ transform: `translateX(-${imageIndex * 100}%)` }}>
             {product.imageUrls.map((url, index) => (
-              <img key={index} src={url} alt={`${product.name} image ${index + 1}`} />
+              <img key={index} src={url} alt={`${product.name} ${index + 1}`} />
             ))}
           </div>
         </div>
@@ -262,14 +265,14 @@ const CollectionPage = () => {
 
            {/* --- NEW: Social Media Icons --- */}
            <div className="social-media-icons">
-             <a href="#" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+             <a href="/" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
                </svg>
              </a>
-             <a href="#" aria-label="TikTok" target="_blank" rel="noopener noreferrer">
+             <a href="/" aria-label="TikTok" target="_blank" rel="noopener noreferrer">
                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
                  <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"></path>
                </svg>
@@ -286,12 +289,13 @@ const CollectionPage = () => {
            {/* Store sections temporarily */}
            {(() => {
                const sections = {};
-               data.storySections.forEach(section => {
+               data.storySections.forEach((section, index) => {
                    // Render sections based on type and store in the sections object
-                   // We use the title or index as a key temporarily 
-                   const key = section.title || section.type + Math.random(); // Using type+random as fallback key
+                   // Use title or generate a stable key based on type and index
+                   const key = section.title || `${section.type}-${index}`;
                    sections[key] = {
                        type: section.type,
+                       originalData: section, // Store original data if needed
                        render: () => {
                            switch (section.type) {
                                case 'text':
@@ -388,30 +392,28 @@ const CollectionPage = () => {
                    );
                }
 
-               // Define the desired order of sections
+               // Define the desired order using stable keys
+               const altProductKey = Object.keys(sections).find(k => sections[k].type === 'text_with_product_alt');
+               
                const orderedKeys = [
-                   'The Artist\'s Journey', // Text
-                   'Sketches & Inspirations', // Gallery
-                   'Translating Texture', // Hoodie Product
-                   'Featured Artwork', // Artwork Gallery
-                   // INTERVIEW SECTION WILL BE INSERTED HERE
-                   'text_with_product_alt' + 'key', // T-shirt Product - **Need a reliable key if title is absent** 
-               ].map(k => k.includes('text_with_product_alt') ? Object.keys(sections).find(sKey => sections[sKey].type === 'text_with_product_alt') : k); // Find the actual key for alt product
-                
-                // **Handle potential missing title for text_with_product_alt**
-                // This is a bit fragile; ideally, data should have unique IDs
-                
+                   sections['The Artist\'s Journey'] ? 'The Artist\'s Journey' : null, // Check if key exists
+                   sections['Sketches & Inspirations'] ? 'Sketches & Inspirations' : null,
+                   sections['Translating Texture'] ? 'Translating Texture' : null,
+                   sections['Featured Artwork'] ? 'Featured Artwork' : null,
+                   altProductKey // Add the dynamically found key
+               ].filter(Boolean); // Remove nulls if titles were missing
+
                // Find the index where the interview should go
                const artworkIndex = orderedKeys.indexOf('Featured Artwork');
 
-               // Filter out any potentially null keys (e.g., if alt product key wasn't found)
-               const validOrderedKeys = orderedKeys.filter(k => k && sections[k]);
+               // No need to filter again, already handled missing keys
+               // const validOrderedKeys = orderedKeys.filter(k => k && sections[k]);
 
                return (
                    <>
-                       {validOrderedKeys.slice(0, artworkIndex + 1).map(key => sections[key].render())}
+                       {orderedKeys.slice(0, artworkIndex + 1).map(key => sections[key].render())}
                        {interviewSection} {/* Render interview section */} 
-                       {validOrderedKeys.slice(artworkIndex + 1).map(key => sections[key].render())}
+                       {orderedKeys.slice(artworkIndex + 1).map(key => sections[key].render())}
                    </>
                );
            })()}

@@ -66,7 +66,7 @@ const LandingPage = () => {
                 <div className="image-slider"> {/* Slider itself with grey background */}
                     <div className="image-slider-wrapper" style={{ transform: `translateX(-${imageSliderIndex * 100}%)` }}>
                         {featuredCollection.imageUrls.map((url, index) => (
-                            <img key={index} src={url} alt={`Collection image ${index + 1} for ${featuredCollection.collectionTitle}`} />
+                            <img key={index} src={url} alt={`Collection ${index + 1} for ${featuredCollection.collectionTitle}`} />
                         ))}
                     </div>
                 </div>
