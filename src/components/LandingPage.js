@@ -48,7 +48,7 @@ const LandingPage = () => {
         </nav>
       </header>
 
-      <section className="hero-section" style={{backgroundImage: `url('/Hero section PIC/Frame 2.png')`}}>
+      <section className="hero-section" style={{backgroundImage: `url(${process.env.PUBLIC_URL}/Hero section PIC/Frame 2.png)`}}>
         <div className="hero-content">
           <h2>Where Art Meets Apparel</h2>
           <p>Explore limited-edition collections crafted by visionary artists.</p>
