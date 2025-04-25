@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import heroBgImage from '../assets/hero-background.png'; // Import the image
 
 // Updated data structure
 const featuredCollection = {
@@ -48,7 +49,7 @@ const LandingPage = () => {
         </nav>
       </header>
 
-      <section className="hero-section" style={{backgroundImage: `url('/hero-section-pic/frame-2.png')`}}>
+      <section className="hero-section" style={{backgroundImage: `url(${heroBgImage})`}}>
         <div className="hero-content">
           <h2>Where Art Meets Apparel</h2>
           <p>Explore limited-edition collections crafted by visionary artists.</p>
