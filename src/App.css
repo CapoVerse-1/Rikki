@@ -7,37 +7,37 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #ffffff; /* Keep main background white */
-  color: #3a3a3a; /* Slightly warmer dark text */
+  background-color: #FFFBF5; /* NEW: Warm Cream Background */
+  color: #5D534A; /* NEW: Warm Dark Brown/Grey Text */
   line-height: 1.7;
   position: relative; /* Needed for pseudo-element positioning */
   overflow-x: hidden; /* Prevent horizontal scroll from blurred elements */
 }
 
-/* Blurred background elements */
+/* Blurred background elements - Warm Tones */
 body::before, body::after {
     content: '';
     position: fixed; /* Use fixed to stay in viewport */
     border-radius: 50%;
-    opacity: 0.15; /* Make them subtle */
-    filter: blur(100px); /* Strong blur */
+    opacity: 0.18;
+    filter: blur(120px);
     z-index: -1; /* Behind everything */
 }
 
-/* Warm Ellipse 1 */
+/* Peachy Orange Ellipse */
 body::before {
     width: 500px;
     height: 500px;
-    background-color: #ffeadd; /* Warm peach/beige tone */
+    background-color: #EFB495; /* Use Peachy Orange */
     top: -150px;
     left: -200px;
 }
 
-/* Warm Ellipse 2 */
+/* Soft Gold Ellipse */
 body::after {
     width: 400px;
     height: 400px;
-    background-color: #e0d8ff; /* Soft lavender tone */
+    background-color: #EFD595; /* Use Soft Gold */
     bottom: -100px;
     right: -150px;
 }
@@ -50,17 +50,17 @@ code {
 h1, h2, h3 {
   font-weight: 500;
   letter-spacing: -0.5px;
-  color: #2c2c2c; /* Slightly darker heading color */
+  color: #4A403A; /* NEW: Darker Warm Brown for headings */
 }
 
 a {
-  color: #5a5a5a; /* Warmer grey link color */
+  color: #E88D67; /* NEW: Primary Accent - Terracotta */
   text-decoration: none;
   transition: color 0.3s ease, opacity 0.3s ease;
 }
 
 a:hover {
-  color: #1a1a1a; /* Darker warm grey on hover */
+  color: #C06C52; /* NEW: Secondary Accent/Hover - Darker Terracotta */
   opacity: 1;
 }
 
@@ -84,7 +84,7 @@ a:hover {
   justify-content: space-between;
   align-items: center;
   padding: 30px 0; /* More vertical padding */
-  border-bottom: 1px solid #f0f0f0; /* Lighter border */
+  border-bottom: 1px solid #EAE0D5; /* NEW: Light Warm Grey/Beige border */
   margin-bottom: 70px; /* Increased spacing */
 }
 
@@ -93,17 +93,18 @@ a:hover {
   font-size: 1.8em; /* Slightly smaller */
   font-weight: 600;
   letter-spacing: -0.8px;
+  color: #4A403A; /* Heading color */
 }
 
 .main-header nav a {
   margin-left: 35px; /* More nav spacing */
   font-size: 0.95em; /* Slightly smaller nav links */
   font-weight: 400; /* Regular weight */
-  color: #666;
+  color: #6a6058; /* Slightly lighter warm text for nav */
 }
 
 .main-header nav a:hover {
-    color: #000;
+    color: #E88D67; /* Primary Accent hover */
 }
 
 /* Hero Section - Retain Box Structure */
@@ -162,10 +163,10 @@ a:hover {
 }
 
 .hero-content button {
-  padding: 15px 35px; /* Adjusted padding */
-  font-size: 1em; /* Adjusted size */
-  background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent white button */
-  color: #333;
+  padding: 15px 35px;
+  font-size: 1em;
+  background-color: #E88D67; /* Primary Accent background */
+  color: #ffffff; /* White text */
   border: none;
   cursor: pointer;
   transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
@@ -175,10 +176,10 @@ a:hover {
 }
 
 .hero-content button:hover {
-  background-color: #ffffff;
-  color: #111;
+  background-color: #C06C52; /* Secondary Accent hover */
+  color: #ffffff;
   transform: translateY(-3px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 6px 20px rgba(232, 141, 103, 0.25); /* Shadow in accent color */
 }
 
 /* Section Titles */
@@ -186,61 +187,49 @@ a:hover {
 .about-brand h2,
 .our-story-section h2 {
   text-align: center;
-  margin-bottom: 60px;
-  font-size: 2.2em; /* Adjusted size */
+  margin-bottom: 40px; /* Reduce margin below title */
+  font-size: 2.2em;
   font-weight: 500;
-  color: #444;
+  color: #4A403A; /* Heading color */
+  border-bottom-color: #EAE0D5; /* NEW: Warm Grey/Beige Underline */
 }
 
-/* Featured Collection Section - Slider Styles */
+/* Featured Collection Section - Single Card Styles */
 .featured-collection-section {
   margin-bottom: 90px;
-  position: relative; /* Context for absolute positioning if needed later */
 }
 
-.collection-slider {
-  overflow: hidden; /* Crucial: Hides the slides that are outside the viewport */
-  position: relative;
-  width: 100%; /* Or max-width if preferred */
-  margin: 0 auto; /* Center slider if using max-width */
-}
-
-.slider-wrapper {
-  display: flex; /* Aligns slides horizontally */
-  transition: transform 0.5s ease-in-out; /* Smooth sliding animation */
-  width: 100%; /* Ensure wrapper takes full width for percentage transform */
-}
-
-.collection-slide {
-  flex: 0 0 100%; /* Each slide takes exactly 100% of the container width */
-  width: 100%;
-  box-sizing: border-box; /* Include padding in width calculation */
-  /* Add padding inside the slide if needed, e.g., padding: 0 10px; */
-}
-
-/* Reusing existing styles for the content within the slide */
-.collection-intro {
+/* New styles for the standalone card */
+.collection-card {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 50px; /* Adjusted gap */
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Adjust min width slightly */
+  gap: 40px; /* Reduce gap slightly */
   align-items: center;
-  background-color: #fdfdfd; /* Slight background for the card */
-  padding: 40px; /* Add padding to the card */
-  border-radius: 10px;
-  box-shadow: 0 6px 20px rgba(0,0,0, 0.04);
-  /* Remove margin-bottom if it was on featured-collection previously */
+  padding: 25px; /* Reduce padding to make card smaller */
+  border-radius: 15px;
+  border: 1px solid #EAE0D5; /* NEW: Warm Grey/Beige border */
+  box-shadow: 0 5px 15px rgba(0,0,0, 0.04);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  background-color: #ffffff; /* Add white background back for contrast */
 }
 
+.collection-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 25px rgba(0,0,0, 0.07);
+  border-color: #dcd0c0; /* Darker warm grey on hover */
+}
+
+/* Styles for content within the card */
 .artist-story {
   padding-right: 20px;
+  /* Ensure it aligns nicely if needed: align-self: center; */
 }
 
-/* Added style for collection title */
 .artist-story h4 {
     font-size: 1.2em;
     font-weight: 400;
-    color: #777;
-    margin-top: -10px; /* Adjust spacing below artist name */
+    color: #777777; /* Keep subtitle neutral */
+    margin-top: -10px;
     margin-bottom: 20px;
 }
 
@@ -248,76 +237,102 @@ a:hover {
     font-size: 1.6em;
     margin-bottom: 15px;
     font-weight: 500;
-    color: #555;
+    color: #333333;
 }
 
 .artist-story p {
     font-size: 1.05em;
     line-height: 1.8;
-    color: #6b6b6b;
+    color: #555555; /* Slightly darker paragraph */
     margin-bottom: 25px;
 }
 
 .collection-visual {
-  text-align: center;
+  position: relative; /* Needed for absolute positioning of dots */
+  /* Remove text-align: center; if it was there */
 }
 
 .collection-visual img {
   max-width: 100%;
   height: auto;
   display: block;
-  background-color: #f5f5f5;
+  background-color: #f8f8f8; /* Lighter grey placeholder */
   border-radius: 8px;
   margin: 0 auto;
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  /* transition: transform 0.4s ease, box-shadow 0.4s ease; */ /* Removed transition */
 }
 
-.collection-visual:hover img {
-    transform: scale(1.03);
-    box-shadow: 0 8px 25px rgba(0,0,0, 0.07);
+/* NEW: Image Slider Styles */
+.image-slider {
+  width: 100%;
+  aspect-ratio: 4 / 3; /* Or set a fixed height */
+  overflow: hidden;
+  border-radius: 10px; /* Match screenshot rounding */
+  background-color: #e0e0e0; /* Grey background like screenshot */
+  position: relative; /* Context for wrapper */
+}
+
+.image-slider-wrapper {
+  display: flex;
+  height: 100%;
+  transition: transform 0.4s ease-in-out;
+}
+
+.image-slider-wrapper img {
+  flex: 0 0 100%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Cover the area */
+  display: block; /* Remove extra space below image */
+  /* Remove individual image background-color, border-radius, transition from previous implementation */
+}
+
+/* Remove hover effect specifically on the wrapper img if it exists */
+/* .collection-visual:hover img { ... } */
+
+.image-slider-dots {
+  position: absolute;
+  bottom: 15px; /* Position dots inside the grey box */
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px; /* Space between dots */
+}
+
+/* Reusing dot styles, making them slightly smaller */
+.image-slider-dots .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent white dots */
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.image-slider-dots .dot.active {
+  background-color: rgba(255, 255, 255, 0.9); /* Brighter white for active dot */
+  transform: scale(1.1);
+}
+
+.image-slider-dots .dot:hover:not(.active) {
+    background-color: rgba(255, 255, 255, 0.7);
 }
 
 .cta-link {
     display: inline-block;
     font-weight: 500;
-    color: #b8a4ff;
+    color: #E88D67; /* Primary Accent */
     border-bottom: 1px solid transparent;
     padding-bottom: 3px;
     transition: border-color 0.3s ease, color 0.3s ease;
 }
 
 .cta-link:hover {
-    color: #8a78d0;
-    border-color: #d9ceff;
-}
-
-/* Slider Dots */
-.slider-dots {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 30px; /* Space above dots */
-}
-
-.dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background-color: #ddd; /* Inactive dot color */
-  border: none;
-  padding: 0;
-  margin: 0 6px; /* Spacing between dots */
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.dot.active {
-  background-color: #aaa; /* Active dot color */
-  transform: scale(1.1);
-}
-
-.dot:hover:not(.active) {
-    background-color: #ccc;
+    color: #C06C52; /* Secondary Accent */
+    border-color: #EAE0D5; /* Warm Grey/Beige underline */
 }
 
 /* Our Story / About Sections */
@@ -333,10 +348,11 @@ a:hover {
 
 .our-story-section h2,
 .about-brand h2 {
-    border-bottom: 1px solid #eee; /* Add a subtle separator line */
+    border-bottom: 1px solid #EAE0D5; /* NEW: Use Warm Grey/Beige for underline */
     display: inline-block;
     padding-bottom: 10px;
     margin-bottom: 40px;
+    color: #333333;
 }
 
 .our-story-section p,
@@ -345,18 +361,18 @@ a:hover {
     margin-left: auto;
     margin-right: auto;
     font-size: 1.1em; /* Adjusted size */
-    color: #5f5f5f;
+    color: #555555;
     line-height: 1.9; /* Increased line height */
 }
 
 /* Footer */
 .main-footer {
-  border-top: 1px solid #f0f0f0; /* Lighter footer border */
+  border-top: 1px solid #EAE0D5; /* NEW: Warm Grey/Beige border */
   padding: 40px 0 30px;
   margin-top: 70px;
   text-align: center;
   font-size: 0.9em; /* Slightly smaller footer text */
-  color: #aaa;
+  color: #a1968d; /* Warmer grey footer text */
 }
 
 .footer-links {
@@ -364,20 +380,20 @@ a:hover {
 }
 
 .footer-links a {
-    color: #999;
+    color: #a1968d; /* Match footer text */
     margin: 0 12px;
     transition: color 0.3s ease;
 }
 
 .footer-links a:hover {
-    color: #555;
+    color: #E88D67; /* Primary Accent hover */
 }
 
 /* Basic Responsive Adjustments */
 @media (max-width: 768px) {
   body::before, body::after {
-    filter: blur(70px); /* Less blur on mobile */
-    opacity: 0.1;
+    filter: blur(80px); /* Adjust blur on mobile */
+    opacity: 0.15;
   }
   body::before {
     width: 300px;
@@ -430,39 +446,47 @@ a:hover {
       font-size: 0.95em;
   }
 
-  .featured-collection-section h2 {
+  .featured-collection-section h2,
+  .about-brand h2,
+  .our-story-section h2 {
     font-size: 1.9em;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
   }
 
-  .collection-intro {
-    gap: 30px; /* Smaller gap on mobile */
-    grid-template-columns: 1fr; /* Stack image and text */
-    padding: 30px; /* Less padding on mobile card */
+  .collection-card {
+    gap: 25px; /* Adjust gap */
+    grid-template-columns: 1fr;
+    padding: 20px; /* Reduce mobile padding */
+    box-shadow: 0 4px 12px rgba(0,0,0, 0.04);
+    border-color: #f2e0a8;
   }
 
   .artist-story {
       padding-right: 0;
       text-align: center;
-      order: 2; /* Put text below image when stacked */
+      order: 2;
   }
 
   .collection-visual {
-      order: 1; /* Put image above text when stacked */
+      order: 1;
+  }
+
+  .image-slider {
+      aspect-ratio: 16 / 10; /* Adjust aspect ratio slightly for mobile */
+  }
+
+  .image-slider-dots {
+      bottom: 10px; /* Adjust dot position */
+      gap: 6px;
+  }
+
+  .image-slider-dots .dot {
+      width: 7px;
+      height: 7px;
   }
 
   .artist-story h3 {
     font-size: 1.5em;
-  }
-
-  .slider-dots {
-      margin-top: 25px;
-  }
-
-  .dot {
-      width: 9px;
-      height: 9px;
-      margin: 0 5px;
   }
 
   .our-story-section,
